@@ -1,0 +1,85 @@
+:root{
+  --bg:#000;--ink:#f2f2f2;--mute:#9a9a9a;
+  --win:#1c1c1c;--win-bar:#2b2b2b;--win-line:#3a3a3a;
+  --icon:#8d8d8d;--accent:#d9d9d9;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Thai",system-ui,sans-serif;font-size:17px;line-height:1.7}
+a{color:inherit;text-decoration:none}
+h1,h3,p{margin:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* ไอคอนสีเทา */
+.ico{width:18px;height:18px;fill:none;stroke:var(--icon);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* เมนูบน */
+.topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px clamp(16px,5vw,56px);background:rgba(0,0,0,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--win-line)}
+.logo{font-weight:700}
+nav{display:flex;gap:6px}
+nav a{display:flex;align-items:center;gap:8px;padding:6px 14px;border-radius:8px;color:var(--mute);font-weight:600;font-size:15px}
+nav a:hover{background:var(--win-bar);color:var(--ink)}
+
+main{max-width:1100px;margin:0 auto;padding:0 clamp(16px,5vw,40px) 80px}
+
+/* Home */
+.hero{padding:clamp(56px,10vw,120px) 0 40px}
+.kicker{color:var(--mute);font-size:18px}
+.hero h1{font-size:clamp(96px,22vw,260px);line-height:.9;font-weight:700;letter-spacing:-.04em}
+.hero h1 span{color:var(--mute);font-weight:300}
+.sub{max-width:36em;color:var(--mute);margin-top:24px}
+.btn{display:inline-block;margin-top:32px;padding:12px 28px;border-radius:8px;background:var(--win-bar);border:1px solid var(--win-line);font-weight:600}
+.btn:hover{background:var(--win-line)}
+
+/* เส้นแบ่งหัวข้อ */
+.rule{display:flex;align-items:center;gap:14px;margin:56px 0 32px}
+.rule::before,.rule::after{content:"";flex:1;height:1px;background:var(--win-line)}
+.rule i{width:8px;height:8px;background:var(--icon);transform:rotate(45deg)}
+.rule b{font-size:20px}
+
+/* หน้าต่างสีเทา */
+.window{background:var(--win);border:1px solid var(--win-line);border-radius:12px;overflow:hidden;margin-bottom:28px}
+.titlebar{display:flex;align-items:center;gap:14px;padding:10px 16px;background:var(--win-bar);border-bottom:1px solid var(--win-line)}
+.dots{display:flex;gap:7px}
+.dots i{width:11px;height:11px;border-radius:50%;background:#5a5a5a}
+.wtitle{color:var(--mute);font-size:14px}
+.body{display:grid;grid-template-columns:minmax(0,var(--poster-w)) minmax(0,1fr);gap:28px;padding:24px}
+
+:root{--poster-w:320px}
+/* โปสเตอร์: แสดงภาพเต็มตามสัดส่วนจริง ไม่ครอปหน้าปก */
+.poster{width:100%;max-width:var(--poster-w);align-self:start;background:#111;border:1px solid var(--win-line);border-radius:6px;overflow:hidden}
+.poster img{display:block;width:100%;height:auto;transition:transform .4s}
+.poster:hover img{transform:scale(1.03)}
+/* ถ้าโหลดรูปไม่ได้ จะแสดงกรอบเทาพร้อมชื่อเกมแทน */
+.poster.missing{aspect-ratio:3/4;display:grid;place-items:center;padding:16px;text-align:center;color:var(--mute);font-size:14px}
+.poster.missing::before{content:attr(data-title)}
+
+.info{display:flex;flex-direction:column;justify-content:center}
+.num{font-size:clamp(90px,14vw,150px);font-weight:700;line-height:.9;letter-spacing:-.04em;color:var(--accent)}
+.info h3{font-size:clamp(22px,3vw,32px);line-height:1.25;margin-top:12px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;list-style:none;margin:14px 0 0;padding:0;color:var(--mute);font-size:15px}
+.meta li{display:flex;align-items:center;gap:8px}
+.meta li::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--icon)}
+.info p{margin-top:16px;color:#cfcfcf;max-width:36em}
+
+/* สลับซ้าย-ขวา */
+#ranking .window:nth-of-type(even) .body{grid-template-columns:minmax(0,1fr) minmax(0,var(--poster-w))}
+#ranking .window:nth-of-type(even) .poster{order:2;justify-self:end}
+
+/* อันดับ 1 เด่นกว่าเล็กน้อย */
+#rank-1{border-color:#777}
+#rank-1 .num{color:#fff}
+
+.text{display:block;max-width:44em}
+.text p+p{margin-top:16px}
+.text p{color:#cfcfcf}
+
+footer{padding:28px clamp(16px,5vw,56px);border-top:1px solid var(--win-line);color:var(--mute);font-size:14px}
+
+/* มือถือ */
+@media (max-width:720px){
+  .body,#ranking .window:nth-of-type(even) .body{grid-template-columns:1fr}
+  #ranking .window:nth-of-type(even) .poster{order:0}
+  .poster,#ranking .window:nth-of-type(even) .poster{max-width:280px;justify-self:start}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.poster img{transition:none}}
